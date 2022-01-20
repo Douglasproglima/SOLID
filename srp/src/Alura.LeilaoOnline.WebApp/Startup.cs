@@ -1,3 +1,5 @@
+using Alura.LeilaoOnline.WebApp.Dados;
+using Alura.LeilaoOnline.WebApp.Dados.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +9,9 @@ namespace Alura.LeilaoOnline.WebApp
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            //Todas entidades que solicitarem a instância de ILeilaoDao, será resolvido essa abstração com o LeilaoDaoEFCore
+            services.AddTransient<ILeilaoDao, LeilaoDaoEFCore>();
+
             services
                 .AddControllersWithViews()
                 .AddNewtonsoftJson(options => 
