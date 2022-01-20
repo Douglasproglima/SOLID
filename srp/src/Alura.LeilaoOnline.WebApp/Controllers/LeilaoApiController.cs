@@ -10,24 +10,25 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
     public class LeilaoApiController : ControllerBase
     {
         AppDbContext _context;
-
+        LeilaoDao _dao;
         public LeilaoApiController()
         {
             _context = new AppDbContext();
+            _dao = new LeilaoDao();
         }
 
         [HttpGet]
         public IActionResult EndpointGetLeiloes()
         {
-            var leiloes = _context.Leiloes
-                .Include(l => l.Categoria);
+            var leiloes = _dao.GetAucttions();
+
             return Ok(leiloes);
         }
 
         [HttpGet("{id}")]
         public IActionResult EndpointGetLeilaoById(int id)
         {
-            var leilao = _context.Leiloes.Find(id);
+            var leilao = _dao.GetAuctionId(id);
             if (leilao == null)
             {
                 return NotFound();
@@ -54,7 +55,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [HttpDelete("{id}")]
         public IActionResult EndpointDeleteLeilao(int id)
         {
-            var leilao = _context.Leiloes.Find(id);
+            var leilao = _dao.GetAuctionId(id);
             if (leilao == null)
             {
                 return NotFound();
