@@ -11,6 +11,7 @@ namespace Alura.LeilaoOnline.WebApp
         {
             //Todas entidades que solicitarem a instância de ILeilaoDao, será resolvido essa abstração com o LeilaoDaoEFCore
             services.AddTransient<ILeilaoDao, LeilaoDaoEFCore>();
+            services.AddTransient<ICategoriaDao, CategoriaDaoEFCore>();
 
             services
                 .AddControllersWithViews()

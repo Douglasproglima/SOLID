@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Alura.LeilaoOnline.WebApp.Dados;
 using Alura.LeilaoOnline.WebApp.Models;
 using Microsoft.AspNetCore.Routing;
@@ -9,17 +8,16 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        AppDbContext _context;
+        ICategoriaDao _dao;
 
-        public HomeController()
+        public HomeController(ICategoriaDao dao)
         {
-            _context = new AppDbContext();
+            _dao = dao;
         }
 
         public IActionResult Index()
         {
-            var categorias = _context.Categorias
-                .Include(c => c.Leiloes)
+            var categorias = _dao.GetCategories()
                 .Select(c => new CategoriaComInfoLeilao
                 {
                     Id = c.Id,
@@ -42,8 +40,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [Route("[controller]/Categoria/{categoria}")]
         public IActionResult Categoria(int categoria)
         {
-            var categ = _context.Categorias
-                .Include(c => c.Leiloes)
+            var categ = _dao.GetCategories()
                 .First(c => c.Id == categoria);
             return View(categ);
         }
@@ -54,7 +51,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         {
             ViewData["termo"] = termo;
             var termoNormalized = termo.ToUpper();
-            var leiloes = _context.Leiloes
+            var leiloes = _dao.GetAucttions()
                 .Where(c =>
                     c.Titulo.ToUpper().Contains(termoNormalized) ||
                     c.Descricao.ToUpper().Contains(termoNormalized) ||
