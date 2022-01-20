@@ -3,13 +3,13 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Alura.LeilaoOnline.WebApp.Models;
 
-namespace Alura.LeilaoOnline.WebApp.Dados
+namespace Alura.LeilaoOnline.WebApp.Dados.EFCore
 {
-    public class LeilaoDao
+    public class LeilaoDaoEFCore : ILeilaoDao
     {
         AppDbContext _context;
 
-        public LeilaoDao()
+        public LeilaoDaoEFCore()
         {
             _context = new AppDbContext();
         }
@@ -27,6 +27,25 @@ namespace Alura.LeilaoOnline.WebApp.Dados
         public Leilao GetAuctionId(int id)
         {
             return _context.Leiloes.First(auction => auction.Id == id);
+        }
+
+        public void Add(Leilao auction)
+        {
+            _context.Leiloes.Add(auction);
+            _context.SaveChanges();
+        }
+
+        public void Update(Leilao auction)
+        {
+            _context.Leiloes.Update(auction);
+            _context.SaveChanges();
+
+        }
+
+        public void Delete(Leilao auction)
+        {
+            _context.Leiloes.Remove(auction);
+            _context.SaveChanges();
         }
     }
 }
