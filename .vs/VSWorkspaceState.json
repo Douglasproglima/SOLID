@@ -1,17 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\srp",
-    "\\srp\\src",
-    "\\srp\\src\\Alura.LeilaoOnline.CLI",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Controllers",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Dados",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Dados\\EFCore",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Models",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Views",
-    "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Views\\Home"
+    "\\src",
+    "\\src\\Alura.LeilaoOnline.WebApp"
   ],
-  "SelectedNode": "\\srp\\src\\Alura.LeilaoOnline.WebApp\\Controllers\\HomeController.cs",
-  "PreviewInSolutionExplorer": false
+  "SelectedNode": "\\README.md",
+  "PreviewInSolutionExplorer": true
 }
