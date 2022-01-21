@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Alura.LeilaoOnline.WebApp.Dados;
 using Alura.LeilaoOnline.WebApp.Models;
 using Microsoft.AspNetCore.Routing;
+using Alura.LeilaoOnline.WebApp.Services;
 
 namespace Alura.LeilaoOnline.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        IProductService _service;
         ICategoriaDao _dao;
 
         public HomeController(ICategoriaDao dao)
@@ -51,7 +53,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         {
             ViewData["termo"] = termo;
             var termoNormalized = termo.ToUpper();
-            var leiloes = _dao.GetAucttions()
+            var leiloes = _dao.GetAuctions()
                 .Where(c =>
                     c.Titulo.ToUpper().Contains(termoNormalized) ||
                     c.Descricao.ToUpper().Contains(termoNormalized) ||

@@ -5,7 +5,7 @@ namespace Alura.LeilaoOnline.WebApp.Dados
 {
     public interface ICategoriaDao
     {
-        IEnumerable<Leilao> GetAucttions();
+        IEnumerable<Leilao> GetAuctions();
         IEnumerable<Categoria> GetCategories();
         Categoria GetCategoryId(int id);
         void Add(Categoria category);

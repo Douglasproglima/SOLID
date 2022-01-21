@@ -17,7 +17,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
 
         public IActionResult Index()
         {
-            var leiloes = _dao.GetAucttions();
+            var leiloes = _dao.GetAuctions();
 
             return View(leiloes);
         } 
@@ -124,7 +124,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         {
             ViewData["termo"] = termo;
 
-            var leiloes = _dao.GetAucttions()
+            var leiloes = _dao.GetAuctions()
                 .Where(l => string.IsNullOrWhiteSpace(termo) || 
                     l.Titulo.ToUpper().Contains(termo.ToUpper()) || 
                     l.Descricao.ToUpper().Contains(termo.ToUpper()) ||

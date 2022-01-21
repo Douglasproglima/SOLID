@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Alura.LeilaoOnline.WebApp.Models
@@ -7,24 +8,26 @@ namespace Alura.LeilaoOnline.WebApp.Models
     {        
         public int Id { get; set; }
         
-        [Required(ErrorMessage = "T�tulo � obrigat�rio")] 
-        [Display(Name = "T�tulo", Prompt = "Digite o t�tulo do leil�o")]
+        [Required(ErrorMessage = "Título é obrigatório")] 
+        [Display(Name = "Título", Prompt = "Digite o título do leilão")]
         public string Titulo { get; set; }
 
-        [Display(Name = "Descri��o")]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
-        [Display(Name = "In�cio do Preg�o")]
-        [DataType(DataType.DateTime, ErrorMessage = "Data inv�lida")]
+        [Display(Name = "Início do Pregão")]
+        [DataType(DataType.DateTime, ErrorMessage = "Data inválida")]
         public DateTime? Inicio { get; set; }
 
-        [Display(Name = "T�rmino do Preg�o")]
-        [DataType(DataType.DateTime, ErrorMessage = "Data inv�lida")]
+        [Display(Name = "Término do Pregão")]
+        [DataType(DataType.DateTime, ErrorMessage = "Data inválida")]
         public DateTime? Termino { get; set; }
 
         public int IdCategoria { get; set; }
         public Categoria Categoria { get; set; }
         public SituacaoLeilao Situacao { get; set; }
         public string PosterUrl => $"/images/poster-{Id}.jpg";
+
+        public IEnumerable<object> Leiloes { get; internal set; }
     }
 }

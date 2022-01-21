@@ -17,7 +17,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [HttpGet]
         public IActionResult EndpointGetLeiloes()
         {
-            var leiloes = _dao.GetAucttions();
+            var leiloes = _dao.GetAuctions();
 
             return Ok(leiloes);
         }

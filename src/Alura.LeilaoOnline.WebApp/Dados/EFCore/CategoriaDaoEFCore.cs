@@ -14,7 +14,7 @@ namespace Alura.LeilaoOnline.WebApp.Dados.EFCore
             _context = new AppDbContext();
         }
 
-        public IEnumerable<Leilao> GetAucttions()
+        public IEnumerable<Leilao> GetAuctions()
         {
             return _context.Leiloes.Include(auction => auction.Categoria).ToList();
         }
