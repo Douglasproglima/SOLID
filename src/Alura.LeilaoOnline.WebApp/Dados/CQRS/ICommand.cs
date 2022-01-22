@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Alura.LeilaoOnline.WebApp.Dados
+namespace Alura.LeilaoOnline.WebApp.Dados.CQRS
 {
-    public interface IDao<T>
+    public interface ICommand<T>
     {
-        IEnumerable<T> GetAll();
-        T GetById(int id);
         void Add(T obj);
         void Update(T obj);
         void Delete(T obj);

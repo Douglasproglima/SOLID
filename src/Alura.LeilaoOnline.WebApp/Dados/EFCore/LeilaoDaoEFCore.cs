@@ -14,17 +14,12 @@ namespace Alura.LeilaoOnline.WebApp.Dados.EFCore
             _context = context;
         }
 
-        public IEnumerable<Categoria> GetCategories()
-        {
-            return _context.Categorias.ToList();
-        }
-
-        public IEnumerable<Leilao> GetAuctions()
+        public IEnumerable<Leilao> GetAll()
         {
             return _context.Leiloes.Include(auction => auction.Categoria).ToList();
         }
 
-        public Leilao GetAuctionId(int id)
+        public Leilao GetById(int id)
         {
             return _context.Leiloes.First(auction => auction.Id == id);
         }

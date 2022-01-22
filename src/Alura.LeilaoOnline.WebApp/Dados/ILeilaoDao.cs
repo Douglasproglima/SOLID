@@ -1,8 +1,9 @@
-﻿using Alura.LeilaoOnline.WebApp.Models;
+﻿using Alura.LeilaoOnline.WebApp.Dados.CQRS;
+using Alura.LeilaoOnline.WebApp.Models;
 
 namespace Alura.LeilaoOnline.WebApp.Dados
 {
-    public interface ILeilaoDao : IDao<Leilao>
+    public interface ILeilaoDao : ICommand<Leilao>, IQuery<Leilao> 
     {
     }
 }
