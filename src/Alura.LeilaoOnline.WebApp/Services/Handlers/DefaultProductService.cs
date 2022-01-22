@@ -16,27 +16,33 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
             _categoryDao = categoryDao;
         }
 
-        public IEnumerable<Leilao> GetAucttionsFromTermAuction(string term)
+        public Categoria GetCategoryByIdAuctionOnTheTradingFloor(int id)
         {
-            throw new System.NotImplementedException();
+            return _categoryDao.GetCategoryId(id);
         }
 
         public IEnumerable<CategoriaComInfoLeilao> GetCategoriesWithTotalAuctionOnTheTradingFloor()
         {
-            return _categoryDao.GetAuctions()
+            return _categoryDao.GetCategories()
                 .Select(category => new CategoriaComInfoLeilao { 
                     Id = category.Id,
                     Descricao = category.Descricao,
-                    Imagem = category.PosterUrl,
-                    EmRascunho = category.Leiloes.Where(l => l.Situacao == SituacaoLeilao.Rascunho).Count(),
-                    EmPregao = category.Leiloes.Where(l => l. == SituacaoLeilao.Rascunho).Count(),
+                    Imagem = category.Imagem,
+                    EmRascunho = category.Leiloes.Where(auction => auction.Situacao == SituacaoLeilao.Rascunho).Count(),
+                    EmPregao = category.Leiloes.Where(auction => auction.Situacao == SituacaoLeilao.Pregao).Count(),
+                    Finalizados = category.Leiloes.Where(auction => auction.Situacao == SituacaoLeilao.Finalizado).Count(),
 
                 });
         }
 
-        public Categoria GetCategoryByIdAuctionOnTheTradingFloor(int id)
+        public IEnumerable<Leilao> GetAucttionsFromTermAuction(string term)
         {
-            return _categoryDao.GetCategoryId(id);
+            var termNormalized = term.ToUpper();
+            return _auctionDao.GetAuctions()
+                .Where(c =>
+                    c.Titulo.ToUpper().Contains(termNormalized) ||
+                    c.Descricao.ToUpper().Contains(termNormalized) ||
+                    c.Categoria.Descricao.ToUpper().Contains(termNormalized));
         }
     }
 }

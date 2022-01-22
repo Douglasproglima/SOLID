@@ -27,7 +27,5 @@ namespace Alura.LeilaoOnline.WebApp.Models
         public Categoria Categoria { get; set; }
         public SituacaoLeilao Situacao { get; set; }
         public string PosterUrl => $"/images/poster-{Id}.jpg";
-
-        public IEnumerable<object> Leiloes { get; internal set; }
     }
 }

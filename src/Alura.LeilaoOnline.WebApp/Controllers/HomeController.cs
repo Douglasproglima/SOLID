@@ -10,25 +10,15 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
     public class HomeController : Controller
     {
         IProductService _service;
-        ICategoriaDao _dao;
 
-        public HomeController(ICategoriaDao dao)
+        public HomeController(IProductService service)
         {
-            _dao = dao;
+            _service = service;
         }
 
         public IActionResult Index()
         {
-            var categorias = _dao.GetCategories()
-                .Select(c => new CategoriaComInfoLeilao
-                {
-                    Id = c.Id,
-                    Descricao = c.Descricao,
-                    Imagem = c.Imagem,
-                    EmRascunho = c.Leiloes.Where(l => l.Situacao == SituacaoLeilao.Rascunho).Count(),
-                    EmPregao = c.Leiloes.Where(l => l.Situacao == SituacaoLeilao.Pregao).Count(),
-                    Finalizados = c.Leiloes.Where(l => l.Situacao == SituacaoLeilao.Finalizado).Count(),
-                });
+            var categorias = _service.GetCategoriesWithTotalAuctionOnTheTradingFloor();
             return View(categorias);
         }
 
@@ -42,23 +32,17 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [Route("[controller]/Categoria/{categoria}")]
         public IActionResult Categoria(int categoria)
         {
-            var categ = _dao.GetCategories()
-                .First(c => c.Id == categoria);
+            var categ = _service.GetCategoryByIdAuctionOnTheTradingFloor(categoria);
             return View(categ);
         }
 
         [HttpPost]
         [Route("[controller]/Busca")]
-        public IActionResult Busca(string termo)
+        public IActionResult Busca(string term)
         {
-            ViewData["termo"] = termo;
-            var termoNormalized = termo.ToUpper();
-            var leiloes = _dao.GetAuctions()
-                .Where(c =>
-                    c.Titulo.ToUpper().Contains(termoNormalized) ||
-                    c.Descricao.ToUpper().Contains(termoNormalized) ||
-                    c.Categoria.Descricao.ToUpper().Contains(termoNormalized));
-            return View(leiloes);
+            ViewData["termo"] = term;
+            var auctions = _service.GetAucttionsFromTermAuction(term);
+            return View(auctions);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace Alura.LeilaoOnline.WebApp.Dados.EFCore
     {
         AppDbContext _context;
 
-        public LeilaoDaoEFCore()
+        public LeilaoDaoEFCore(AppDbContext context)
         {
-            _context = new AppDbContext();
+            _context = context;
         }
 
         public IEnumerable<Categoria> GetCategories()

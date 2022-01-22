@@ -26,7 +26,8 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 
         public void DeleteAuction(Leilao auction)
         {
-            _dao.Delete(auction);
+            if(auction != null && auction.Situacao != SituacaoLeilao.Pregao)
+                _dao.Delete(auction);
         }
 
         public Leilao GetAuctionById(int id)

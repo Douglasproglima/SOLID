@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Alura.LeilaoOnline.WebApp.Models;
 using Alura.LeilaoOnline.WebApp.Dados;
+using Alura.LeilaoOnline.WebApp.Services;
 
 namespace Alura.LeilaoOnline.WebApp.Controllers
 {
@@ -8,16 +9,17 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
     [Route("/api/leiloes")]
     public class LeilaoApiController : ControllerBase
     {
-        ILeilaoDao _dao;
-        public LeilaoApiController(ILeilaoDao dao)
+        IAdminService _service;
+
+        public LeilaoApiController(IAdminService service)
         {
-            _dao = dao;
+            _service = service;
         }
 
         [HttpGet]
         public IActionResult EndpointGetLeiloes()
         {
-            var leiloes = _dao.GetAuctions();
+            var leiloes = _service.GetAuctions();
 
             return Ok(leiloes);
         }
@@ -25,7 +27,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [HttpGet("{id}")]
         public IActionResult EndpointGetLeilaoById(int id)
         {
-            var leilao = _dao.GetAuctionId(id);
+            var leilao = _service.GetAuctionById(id);
             if (leilao == null) return NotFound();
 
             return Ok(leilao);
@@ -34,7 +36,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [HttpPost]
         public IActionResult EndpointPostLeilao(Leilao leilao)
         {
-            _dao.Add(leilao);
+            _service.AddAuction(leilao);
 
             return Ok(leilao);
         }
@@ -42,24 +44,37 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         [HttpPut]
         public IActionResult EndpointPutLeilao(Leilao leilao)
         {
-            _dao.Update(leilao);
-
+            if (_service.GetAuctionById(leilao.Id) == null) return NotFound();
+            _service.UpdateAuction(leilao);
             return Ok(leilao);
         }
 
         [HttpDelete("{id}")]
         public IActionResult EndpointDeleteLeilao(int id)
         {
-            var leilao = _dao.GetAuctionId(id);
-            if (leilao == null)
-            {
-                return NotFound();
-            }
-            _dao.Delete(leilao);
+            var leilao = _service.GetAuctionById(id);
+            if (leilao == null) return NotFound();
+            _service.DeleteAuction(leilao);
 
             return NoContent();
         }
 
+        [HttpPost("{id}/pregao")]
+        public IActionResult EndpointIniciaPregao(int id)
+        {
+            var leilao = _service.GetAuctionById(id);
+            if (leilao == null) return NotFound();
+            _service.StartTradingFloorOnTheAuctionId(id);
+            return Ok();
+        }
 
+        [HttpDelete("{id}/pregao")]
+        public IActionResult EndpointFinalizaPregao(int id)
+        {
+            var leilao = _service.GetAuctionById(id);
+            if (leilao == null) return NotFound();
+            _service.EndTradingFloorOnTheAuctionId(id);
+            return Ok();
+        }
     }
 }

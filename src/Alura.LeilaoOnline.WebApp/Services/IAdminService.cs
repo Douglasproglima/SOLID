@@ -13,6 +13,5 @@ namespace Alura.LeilaoOnline.WebApp.Services
         void DeleteAuction(Leilao auction);
         void StartTradingFloorOnTheAuctionId(int id);
         void EndTradingFloorOnTheAuctionId(int id);
-
     }
 }
