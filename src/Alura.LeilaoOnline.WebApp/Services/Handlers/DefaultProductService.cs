@@ -18,12 +18,12 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 
         public Categoria GetCategoryByIdAuctionOnTheTradingFloor(int id)
         {
-            return _categoryDao.GetCategoryId(id);
+            return _categoryDao.GetById(id);
         }
 
         public IEnumerable<CategoriaComInfoLeilao> GetCategoriesWithTotalAuctionOnTheTradingFloor()
         {
-            return _categoryDao.GetCategories()
+            return _categoryDao.GetAll()
                 .Select(category => new CategoriaComInfoLeilao { 
                     Id = category.Id,
                     Descricao = category.Descricao,
@@ -38,7 +38,7 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
         public IEnumerable<Leilao> GetAucttionsFromTermAuction(string term)
         {
             var termNormalized = term.ToUpper();
-            return _auctionDao.GetAuctions()
+            return _auctionDao.GetAll()
                 .Where(c =>
                     c.Titulo.ToUpper().Contains(termNormalized) ||
                     c.Descricao.ToUpper().Contains(termNormalized) ||

@@ -8,9 +8,9 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
     public class ArchiveAdminService : IAdminService
     {
         IAdminService _defaultService;
-        public ArchiveAdminService(ILeilaoDao dao)
+        public ArchiveAdminService(ILeilaoDao auctionDao, ICategoriaDao categoryDao)
         {
-            _defaultService = new DefaultAdminService(dao);
+            _defaultService = new DefaultAdminService(auctionDao, categoryDao);
         }
 
         public void AddAuction(Leilao auction)
