@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\Alura.LeilaoOnline.WebApp"
+    "\\tests\\Alura.LeilaoOnline.Testes"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\tests",
   "PreviewInSolutionExplorer": true
 }
