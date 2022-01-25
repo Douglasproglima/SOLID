@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="1_SRP\Ok\" />
     <Folder Include="2_OCP\NotOk\" />
     <Folder Include="2_OCP\Ok\" />
     <Folder Include="3_LSP\NotOk\" />
