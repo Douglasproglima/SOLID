@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="3_LSP\Ok\" />
-    <Folder Include="4_ISP\NotOk\" />
-    <Folder Include="4_ISP\Ok\" />
     <Folder Include="5_DIP\NotOk\" />
     <Folder Include="5_DIP\Ok\" />
   </ItemGroup>
